@@ -1,0 +1,90 @@
+<html>
+<head>
+
+<!-- Disable zoom on mobile site 
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<meta name="viewport" content="width=device-width" />
+-->
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/main.css"/>
+
+<title>
+HaverApp 2.0
+</title>
+</head>
+
+<body>
+
+<div id="topBar">
+HaverApp
+</div>
+
+
+<div id="menuContainer">
+<!-- CASEY: These could be created in Django quickly and scalably-->
+
+<a href="http://mail.haverford.edu">
+<div class="menuButton">
+E-Mail
+<div class="menuIconContainer">
+<img class="menuIcon" src="{{ STATIC_URL }}icons/envelope.png">
+</div>
+</div>
+</a>
+
+<a href="https://moodle.haverford.edu/">
+<div class="menuButton">
+Moodle
+<div class="menuIconContainer">
+<img class="menuIcon" src="{{ STATIC_URL }}icons/moodle.png">
+</div>
+</div>
+</a>
+
+<a href="http://go.haverford.edu/">
+<div class="menuButton">
+Go!
+<div class="menuIconContainer">
+<img class="menuIcon" src="{{ STATIC_URL }}icons/babyClover.png">
+</div>
+</div>
+</a>
+
+<div class="menuButton">
+Events
+<div class="menuIconContainer">
+</div>
+</div>
+
+<div class="menuButton">
+Dining
+<div class="menuIconContainer">
+<img class="menuIcon" src="{{ STATIC_URL }}icons/dinner.png">
+</div>
+</div>
+
+<div class="menuButton">
+Transportation
+<div class="menuIconContainer">
+<img class="menuIcon" src="{{ STATIC_URL }}icons/car.png">
+</div>
+</div>
+
+<div class="menuButton">
+Student News
+<div class="menuIconContainer">
+</div>
+</div>
+</div>
+
+<!-- CASEY: This should DEFINITELY be made in Django -->
+<div id="copyrightContainer">
+Another fine product from the good folks at FIG. &copy;2013
+</div>
+
+<a href="http://haverford.edu"><div id="HaverLogo"></div></a>
+
+{{ example_var }} 
+
+
+</body>
+</html>

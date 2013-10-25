@@ -21,8 +21,12 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	(r"^$", home_screen),
+	(r"^home/?$", home_screen),
+	(r"^main/?$", home_screen),
 	#Check out Regular Expressions for more on the ^ and $ characters. --Casey
-	(r"^events$", events_page),
+	(r"^event[s/]?$", events),
+	(r"^health/?$", health),
+
 	(r"^casey$", casey),
 	(r"^anh$", anh),
 	(r"^fortytwo$", fortytwo),
@@ -31,7 +35,6 @@ urlpatterns = patterns('',
 	(r"^caleb$", caleb),
 	(r"^dawit$", dawit),
 	
-	(r"^events$", get_events),
     # Uncomment the next line to enable the admin:
     	(r'^admin/', include(admin.site.urls)),
 )

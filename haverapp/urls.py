@@ -10,6 +10,7 @@ from haverapp.views_Dawit import *
 from haverapp.views_caleb import *
 from haverapp.views_anh import *
 from haverapp.views_jesse import *
+from haverapp.vuze_blair import *
 
 
 
@@ -20,12 +21,12 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-	(r"^$", home_screen),
-	(r"^home/?$", home_screen),
-	(r"^main/?$", home_screen),
+	(r"^$", menu_screen, {}),
+	(r"^home/?$", menu_screen, {"page": "index"}),
+	(r"^main/?$", menu_screen, {"page": "index"}),
 	#Check out Regular Expressions for more on the ^ and $ characters. --Casey
-	(r"^event[s/]?$", events),
-	(r"^health/?$", health),
+	(r"^event[s]?/?$", menu_screen, {"page": "events"}),
+	(r"^health/?$", menu_screen, {"page": "health"}),
 
 	(r"^casey$", casey),
 	(r"^anh$", anh),
@@ -34,6 +35,8 @@ urlpatterns = patterns('',
 	(r"^jesse$", jesse),
 	(r"^caleb$", caleb),
 	(r"^dawit$", dawit),
+	(r"^blair$", blair),
+	
 	
     # Uncomment the next line to enable the admin:
     	(r'^admin/', include(admin.site.urls)),

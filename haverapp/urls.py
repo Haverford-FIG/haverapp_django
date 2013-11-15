@@ -21,22 +21,30 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+	#Check out Regular Expressions for more on the ^ and $ characters. --Casey
 	(r"^$", menu_screen, {}),
 	(r"^home/?$", menu_screen, {"page": "index"}),
-	(r"^main/?$", menu_screen, {"page": "index"}),
-	#Check out Regular Expressions for more on the ^ and $ characters. --Casey
-	(r"^event[s]?/?$", menu_screen, {"page": "events"}),
 	(r"^health/?$", menu_screen, {"page": "health"}),
-
-	(r"^casey$", casey),
-	(r"^anh$", anh),
-	(r"^fortytwo$", fortytwo),
-	(r"^brandon$", brandon),
-	(r"^jesse$", jesse),
-	(r"^caleb$", caleb),
-	(r"^dawit$", dawit),
-	(r"^blair$", blair),
+	(r"^new_grub/?$", new_grub),	
 	
+	(r"^events?/?$", menu_screen, {"page": "events"}),
+	(r"^events_haverford/?$", events_haverford),
+	(r"^events_bryn_mawr/?$", events_bryn_mawr),
+	(r"^transportation/?$", menu_screen, {"page": "transportation"}),
+	(r"^SEPTA/?$", transportation, {"page": "SEPTA"}),
+	(r"^bluebus/?$", transportation, {"page": "bluebus"}),
+	(r"^events_swarthmore/?$",swarthmore_events),	
+	#Test Views that ultimately should be deleted.
+	(r"^casey/?$", casey),
+	(r"^anh/?$", anh),
+	(r"^fortytwo/?$", fortytwo),
+	(r"^brandon/?$", events_haverford),
+	(r"^jesse/?$", jesse),
+	(r"^caleb/?$", caleb),
+	(r"^dawit/?$", dawit),
+	(r"^blair/?$", blair),
+
+
 	
     # Uncomment the next line to enable the admin:
     	(r'^admin/', include(admin.site.urls)),

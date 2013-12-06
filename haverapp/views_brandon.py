@@ -22,13 +22,14 @@ def septa(request):
 
 
 def events_upenn(request):
-	raw_response = urllib2.urlopen("http://mc.brynmawr.edu/MasterCalendar/RSSFeeds.aspx?data=OiNeXA6LJItp%2bLkkMsbi49mAmSFb2aYs4cLs6ugMeyyRblb6fLj%2b2Q%3d%3d").read()
+	raw_response = urllib2.urlopen("http://www.upenn.edu/calendar-export/?type=rss2&showndays=7").read()
         xml_response = ET.fromstring(raw_response)
         product = ''
         for child  in xml_response:
                 for grandchild in child.findall('item'):
-                        product += '<div style="border:solid">'
-                        product += '<h1>'+ grandchild[0].text.encode('utf-8')+'</h1>'
-                        product += '<p>'+ grandchild[1].text.encode('utf-8')+'</p>'
-                        product += '</div>'
+			print grandchild[0].text
+                        #product += '<div style="border:solid">'
+                        #product += '<h1>'+ grandchild[0].text.encode('utf-8')+'</h1>'
+                        #product += '<p>'+ grandchild[1].text.encode('utf-8')+'</p>'
+                        #product += '</div>'
         return HttpResponse(product)

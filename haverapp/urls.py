@@ -31,11 +31,10 @@ urlpatterns = patterns('',
 	(r"^events_bryn_?mawr?/?$", events, {"page": "brynmawr"}),
 	(r"^events_swarthmore?/?$", events, {"page": "swarthmore"}),
 	(r"^events_upenn/?$", events, {"page": "upenn"}),
-	
+	(r"^events_campus_philly/?$", events, {"page": "campus_philly"}),
 	(r"^transportation/?$", menu_screen, {"page": "transportation"}),
 	(r"^SEPTA/?$", transportation, {"page": "SEPTA"}),
 	(r"^bluebus/?$", transportation, {"page": "bluebus"}),
-
 
 	(r"^new_grub/?$", new_grub),	
 	#Test Views that ultimately should be deleted.
@@ -47,6 +46,7 @@ urlpatterns = patterns('',
 	(r"^caleb/?$", caleb),
 	(r"^dawit/?$", dawit),
 	(r"^blair/?$", blair),
+	(r"^camp_philly_feed/?$", camp_philly_feed),
 
 
 	

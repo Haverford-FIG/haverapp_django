@@ -6,6 +6,8 @@ from django.contrib.auth.models import User, Group
 from django.db import models
 from django.db.models import Q
 
+from datetime import datetime
+
 class BlueBusDay(models.Model):
 	day = models.CharField(max_length=9)
 	time = models.TimeField()
@@ -13,44 +15,79 @@ class BlueBusDay(models.Model):
 
 	def __unicode__(self):
 		return "{}: {} ({})".format(self.day, self.time, self.name)
-#x = BlueBusDay()
-#x.day, x.name = "Monday", "Test Time"
-#x.time = datetime.datetime.now().time()
-"""
-7:10 AM	7:20 AM	7:40 AM	8:00 AM
-8:10 AM	8:20 AM	8:30 AM	8:40 AM
- 	 	8:40 AM	8:50 AM
-8:55 AM	9:05 AM	9:20 AM	9:30 AM
-9:05 AM	9:15 AM	9:30 AM	9:40 AM
-9:45 AM	9:55 AM	10:00 AM	10:10 AM
-9:55 AM	10:05 AM	10:10 AM	10:20 AM
-10:25 AM	10:35 AM	10:45 AM	10:55 AM
-10:35 AM	10:45 AM	10:55 AM	11:05 AM
-11:10 AM	11:20 AM	11:30 AM	11:40 AM
-11:20 AM	11:30 AM	11:40 AM	11:50 AM
-11:55 AM	12:05 PM	12:15 PM	12:25 PM
-12:05 PM	12:15 PM	12:25 PM	12:35 PM
-12:40 PM	12:50 PM	1:00 PM	1:10 PM
-12:50 PM	1:00 PM	1:10 PM	1:20 PM
-1:25 PM	1:35 PM	1:45 PM	1:55 PM
-1:35 PM	1:45 PM	1:55 PM	2:05 PM
-2:10 PM	2:20 PM	2:40 PM	2:50 PM
-2:25 PM	2:35 PM	2:50 PM	3:00 PM
-3:10 PM	3:20 PM	3:30 PM	3:40 PM
-3:20 PM	3:30 PM	3:40 PM	3:50 PM
-3:45 PM	3:55 PM	4:00 PM	4:10 PM
-3:55 PM	4:05 PM	4:10 PM	4:20 PM
-4:15 PM	4:25 PM	4:45 PM	4:55 PM
-5:10 PM	5:20 PM	5:50 PM	6:00 PM
-6:10 PM	6:20 PM	6:25 PM	6:35 PM
-6:40 PM	6:50 PM	6:55 PM	7:05 PM
-7:10 PM	7:20 PM	7:40 PM	7:50 PM
-8:10 PM	8:20 PM	8:55 PM	9:05 PM
-9:10 PM	9:20 PM	9:35 PM	9:45 PM
-9:50 PM	10:00 PM	10:05 PM	10:15 PM
-10:20 PM	10:30 PM	10:40 PM	10:50 PM
-11:10 PM	11:20 PM	11:40 PM	11:50 PM
-12:10 AM	12:20 AM	12:40 AM	12:50 AM
-http://www.brynmawr.edu/transportation/bico.shtml#friday
-"""
+
+#Written by Casey Falk (12/5/13)
+#Last Modified by "    "
+#  Store a new entry in the database with the given fields. 
+def store_new_BlueBusDay_entry(day, time, name):
+ new_entry = BlueBusDay()
+ new_entry.day = day
+ new_entry.time = time
+ new_entry.name = name
+ new_entry.save()
+
+#Written by Casey Falk (12/5/13)
+#Last Modified by "     "
+def update_BlueBusDay_entries_on(day, data_matrix):
+ try:
+  #Variable Setup
+  i = 1
+  headers = data_matrix.pop(0) #Get the headers from the data_matrix.
+  
+  #Check the data_matrix type:
+  if type(data_matrix)!=list:
+   raise Exception("Please use the output of the organize_bus_times function as input.")
+  #Completely replace the objects on the given day. 
+  BlueBusDay.objects.filter(day=day).delete()    
+
+  #Create the new database entries.
+  for row in data_matrix:
+   header_index = 0
+   for raw_time in row:
+    if not raw_time: 
+     continue #Skip any entry that does not have a time.
+    else:
+     #If the raw_time does not have a zero-pad, add one.
+     if raw_time[2]!=":": 
+      raw_time = "0" + raw_time
+    time = datetime.strptime(raw_time, "%I:%M%p")
+    name = headers[header_index]
+    store_new_BlueBusDay_entry(day, time, name)
+
+    header_index += 1 #NOW save the BlueBusDay object to the database.
+    i += 1 #Increment the total number of entries made.
+  print "Database entries for \"{}\" updated successfully!".format(day)
+ except Exception as e:
+  raise Exception("Could not create data entry {} (\"{}\"): {}".format(i, raw_time, e))
+    
+#WRITTEN BY JESSE PAZDERA, LAST UPDATE: 12/5/13
+
+def organize_bus_times(number_of_columns, times):
+        current_string = ''
+        current_row = []
+        if number_of_columns == 4:
+                timetable = [['Leave Bryn Mawr', 'Arrive Haverford', 'Leave Haverford', 'Arrive Bryn Mawr']]
+        elif number_of_columns == 2:
+                timetable = [['Bryn Mawr to Haverford', 'Haverford to Bryn Mawr']]
+        elif number_of_columns == 5:
+                timetable = [['Leaves BMC', 'Leaves Suburban Square', 'Leaves HCA', 'Leaves Stokes', 'Leaves Suburban Square']]
+        else:
+                raise Exception('Invalid value for parameter number_of_columns. Valid inputs are 2, 4, and 5.')
+        i = ''
+        for i in times:
+                if len(current_row) < number_of_columns:
+                        if i == '\t': #if empty box in column
+                                current_row = current_row + ['']
+                        else:
+                                if i != 'M':
+                                        if i != ' ' and i != '\n': #ignore spaces between number and AM/PM
+                                                current_string = current_string + i
+                                else:
+                                        current_string = current_string + i
+                                        current_row = current_row + [current_string]
+                                        current_string = ''
+                else:
+                        timetable = timetable + [current_row]
+                        current_row = []
+        return timetable
 

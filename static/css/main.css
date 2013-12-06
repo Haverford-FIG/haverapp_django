@@ -59,6 +59,24 @@ h1 {
  font-family: ubuntu;
 }
 
+/* CSS for Transport Subfunctions (eg: Blue Bus, SEPTA, etc.) */
+.blueBusTable {
+ display: inline-block;
+}
+.blueBusCol {
+ display:inline-block;
+ vertical-align:top;
+ padding:5px;
+}
+.blueBusEntry {
+ display: block;
+}
+.blueBusHeading {
+ font-weight: bold;
+}
+
+
+
 .menuText {
  position:absolute;
  font-size:24px;

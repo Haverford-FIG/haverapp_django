@@ -18,17 +18,16 @@
                 {% endif %}
         </div>
         <div class="blueBusScheduleContainer">
-         <table class="blueBusScheduleTable">
-         {% for row in schedule_today %}
-                <tr>
-                {% for entry in row %}
-                        <td>
-                                {{ entry }}
-                        </td>
-                {% endfor %}
-                </tr>
+	<div class="blueBusTable">
+	{% for heading, col in data.schedule_today %}
+        	<div class="blueBusCol">
+        	<div class="blueBusHeading">{{heading}}</div>
+			{% for entry in col %} 
+				<div class="blueBusEntry">{{ entry.time }}</div>
+			 {% endfor %}
+		</div>
         {% endfor %}
-         </table>
+	</div>
         </div>
         
         <a href="http://www.brynmawr.edu/transportation/bico.shtml#monday"
@@ -41,4 +40,5 @@
 {% endautoescape %}
 
         <script src="{{ STATIC_URL }}/js/apps/blueBusApp.js"></script>
+                </tr>
 </div>

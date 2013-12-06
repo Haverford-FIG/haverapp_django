@@ -21,8 +21,8 @@ def blair(request):
 
 
 #
-def new_grub(request, date=datetime.datetime.today()):
-	raw_feed = feedparser.parse("http://www.google.com/calendar/feeds/hc.dining%40gmail.com/public/basic")
+def new_grub(request, date=datetime.datetime.today()+datetime.timedelta(days=1)):
+	raw_feed = feedparser.parse("http://www.google.com/calendar/feeds/hc.dining@gmail.com/public/basic/")
 	format_date_to_feed = "{0:%a}{0:%b}{0:%d},{0:%Y}".format(date) #puts the date into a feed-like format
 	date = date.strftime("%d-%m-%Y") #This is the date that will show on the template	
 
@@ -31,9 +31,11 @@ def new_grub(request, date=datetime.datetime.today()):
 	todays_feed = ""
         #Start to strip the feed for the requested meal:
         for entry in raw_feed.entries:
-		feed += u"<div style=border:solid;>{}</div>".format(entry["content"][0]["value"].replace("When: ", ""))
+		feed = entry["content"][0]["value"].replace("When: ", "")
 		grub_of_the_day = "".join(feed[:16].split(" ")) #Remove punctuation from date for comparison.
-		todays_feed += grub_of_the_day
+		#todays_feed += grub_of_the_day
+		#print format_date_to_feed
+		print grub_of_the_day
 		if grub_of_the_day == format_date_to_feed:
 			todays_feed = feed
 	return HttpResponse(todays_feed)

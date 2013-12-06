@@ -1,16 +1,7 @@
 <html>
+
 <head>
-
-<!-- Disable zoom on mobile site--> 
-<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-<meta name="viewport" content="width=device-width, user-scalable=no"/>
-
-<!-- Import the "style" -->
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/main.css"/>
-
-<title>
-HaverApp 2.0
-</title>
+{% include "header.html" %}
 </head>
 
 <body>
@@ -23,15 +14,8 @@ HaverApp 2.0
 {% include menu %}
 </div>
 
-<!-- CASEY: This should DEFINITELY be made in Django -->
-<div id="copyrightContainer">
-Another fine product from the good folks at FIG. &copy;2013
-</div>
-
-<a href="http://haverford.edu"><div id="HaverLogo"></div></a>
-
-{{ example_var }} 
-
+{% include "copyright.html" %}
 
 </body>
 </html>
+

@@ -9,6 +9,9 @@ import urllib2
 import datetime
 from xml.etree import ElementTree
 
+from transportation_views import *
+from events_views import *
+
 def menu_screen(request, page="index"):
 	if page=="health":
 		menu="health_menu.html"
@@ -24,20 +27,6 @@ def menu_screen(request, page="index"):
 		title="HaverApp"
 	return render(request, "index.html", {"title":title, "menu":menu})
 
-def transportation(request, page):
-	if page=="SEPTA":
-		template = "SEPTA.html"
-		data = {"heading_1":[], "heading_2":[]}
-		title="SEPTA"
-	elif page=="bluebus":
-		template = "blueBus.html"
-		data = {"heading_1":[], "heading_2":[]}
-		title="Blue Bus"
-	else:
-		template = "blueBus.html"
-		data = {"heading_1":[], "heading_2":[]}
-		title="404"
-	return render(request, "transportation.html", {"template":template, "data":data, "title": title})
 
 #Sample "Events" web-stripper.
 #def events(request):

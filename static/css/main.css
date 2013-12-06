@@ -9,6 +9,12 @@
  src: url(ubuntu_reg.ttf) format("truetype");
 }
 
+table {
+ font-family: inherit;
+ text-align:center;
+ max-width: inherit;
+}
+
 
 body {
  background-color: maroon;
@@ -27,6 +33,10 @@ a:visited{
  color:black;
 }
 
+h1 {
+ font-family: inherit; 
+}
+
 #topBar {
  font-family:raleway;
  font-size: 32px;
@@ -36,6 +46,17 @@ a:visited{
 }
 
 #menuContainer {
+ font-family: ubuntu;
+}
+
+#transportationContainer {
+ background-color:white;
+ border-radius: 15px;
+ padding:10px;
+ text-align:center;
+ margin: 0 auto;
+ position: relative;
+ font-family: ubuntu;
 }
 
 .menuText {
@@ -43,7 +64,6 @@ a:visited{
  font-size:24px;
  width: 80%;
  text-align: center;
- font-family: ubuntu;
  display: inline-block;
 }
 

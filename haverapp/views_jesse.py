@@ -2,9 +2,9 @@ from django.http import HttpResponse, Http404
 from django.template import RequestContext
 from django.shortcuts import render
 
-#WRITTEN BY JESSE PAZDERA, LAST UPDATE: 12/5/13
+#ALL FUNCTIONS WRITTEN BY JESSE PAZDERA, LAST UPDATE: 12/7/13
 
-def org_times(times):
+def org_times(number_of_columns, times):
 	current_string = ''
 	current_row = []
 	timetable = []
@@ -36,7 +36,7 @@ def organize_bus_times(number_of_columns, times):
 		timetable = [['Leaves BMC', 'Leaves Suburban Square', 'Leaves HCA', 'Leaves Stokes', 'Leaves Suburban Square']]
 	else:
 		raise Exception('Invalid value for parameter number_of_columns. Valid inputs are 2, 4, and 5.')
-	return timetable + org_times(times)
+	return timetable + org_times(number_of_columns, times)
 
 def organize_trico_van(van_route, times):
 	if van_route == 'BMC':
@@ -47,7 +47,7 @@ def organize_trico_van(van_route, times):
 		timetable = [['Bryn Mawr to Haverford', 'Haverford to Swarthmore', 'Swarthmore to Haverford', 'Haverford to Bryn Mawr']]
 	else:
 		raise Exception('Invalid input: Van route must be \"BMC\", \"HC\", or \"TRI\"')
-	return timetable + org_times(times)
+	return timetable + org_times(4, times)
 '''
 MONDAY:
 

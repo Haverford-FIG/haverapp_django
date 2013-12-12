@@ -9,8 +9,6 @@ import urllib2
 import datetime
 from xml.etree import ElementTree
 from django.utils.html import strip_tags
-from xml.dom import minidom
-from StringIO import StringIO
 
 
 import re #Import regex expressions.
@@ -48,20 +46,19 @@ def events_haverford():
 
 def events_swarthmore():
         raw_response = urllib2.urlopen("http://calendar.swarthmore.edu/calendar/RSSSyndicator.aspx?category=&location=&type=N&binary=Y&keywords=&number=20&ics=Y").read()
-        #xml_response = ElementTree.fromstring(raw_response)
+        xml_response = ElementTree.fromstring(raw_response)
 	
-	xml_response = minidom.parse(StringIO(raw_response))
-	children = xml_response.getElementsByTagName("item")
-	#"Generalized" the function below to just return a list of the needed text.
 	"""
 	product = ''
+	for child in xml_response:
+		for grandchild in child.findall("item"):
 			product += '<div style="border:solid">'
 			product += '<h1>'+ grandchild[0].text.encode('utf-8')+'</h1>'
 			product += '<p>'+ grandchild[2].text.encode('utf-8')+'</p>'
 			product += '</div>'
         return HttpResponse(product)
 	"""
-	product	= [{"title":grandchild[0].text, "url":grandchild[1].text, "description":grandchild[3].text} for item in children for grandchild in item.ChildNodes]
+	product	= [{"title":grandchild[0].text, "url":grandchild[1].text, "description":grandchild[3].text[9:-3]} for item in xml_response for grandchild in item.findall("item")]
 	return product
 
 # Written by Brandon on 12/5/2013
@@ -82,6 +79,7 @@ def events_upenn():
 	"""
 	product = [{"title":grandchild[0].text, "description":strip_tags(grandchild[2].text), "url":grandchild[1].text} for child in xml_response for grandchild in child.findall('item')]
         return product
+
 #written by blair. last edited by blair 12/05/2013
 def camp_philly_feed():
         raw_response = urllib2.urlopen("http://campusphilly.org/feed/").read()

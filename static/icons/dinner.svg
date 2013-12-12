@@ -1,143 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="744.09448819"
-   height="1052.3622047"
-   id="svg2"
-   version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="drawing.svg">
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="246.91619"
-     inkscape:cy="567.29599"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     inkscape:window-width="784"
-     inkscape:window-height="821"
-     inkscape:window-x="800"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0" />
-  <defs
-     id="defs4" />
-  <metadata
-     id="metadata7">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     id="layer1"
-     inkscape:groupmode="layer"
-     inkscape:label="Layer 1">
-    <rect
-       style="fill:#000000"
-       id="rect3142"
-       width="16.428572"
-       height="158.57143"
-       x="192.85715"
-       y="244.50504" />
-    <rect
-       style="fill:#000000"
-       id="rect3142-1"
-       width="16.428572"
-       height="158.57143"
-       x="227.52153"
-       y="245.91925" />
-    <rect
-       style="fill:#000000"
-       id="rect3142-1-7"
-       width="16.428572"
-       height="158.57143"
-       x="263.07687"
-       y="245.21214" />
-    <rect
-       style="fill:#000000"
-       id="rect3226"
-       width="85.559921"
-       height="15.556349"
-       x="193.04015"
-       y="389.09604" />
-    <rect
-       style="fill:#000000"
-       id="rect3232"
-       width="32.526913"
-       height="221.32442"
-       x="219.91022"
-       y="394.75287" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#000000"
-       id="path3268"
-       sodipodi:cx="236.52722"
-       sodipodi:cy="404.29883"
-       sodipodi:rx="42.779961"
-       sodipodi:ry="9.5459414"
-       d="m 279.30718,404.29883 a 42.779961,9.5459414 0 1 1 -85.55992,0 42.779961,9.5459414 0 1 1 85.55992,0 z" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#000000"
-       id="path3272"
-       sodipodi:cx="236.17366"
-       sodipodi:cy="619.96637"
-       sodipodi:rx="16.263456"
-       sodipodi:ry="5.3033009"
-       d="m 252.43712,619.96637 a 16.263456,5.3033009 0 1 1 -32.52692,0 16.263456,5.3033009 0 1 1 32.52692,0 z"
-       transform="matrix(1,0,0,1.6,0,-374.79784)" />
-    <rect
-       style="fill:#000000"
-       id="rect3232-8"
-       width="32.526913"
-       height="221.32442"
-       x="340.72891"
-       y="394.04572" />
-    <path
-       transform="matrix(0.63909879,0,0,9.1145143,189.68166,-3358.8564)"
-       sodipodi:type="arc"
-       style="fill:#000000"
-       id="path3268-8"
-       sodipodi:cx="236.52722"
-       sodipodi:cy="404.29883"
-       sodipodi:rx="42.779961"
-       sodipodi:ry="9.5459414"
-       d="m 279.30718,404.29883 a 42.779961,9.5459414 0 1 1 -85.55992,0 42.779961,9.5459414 0 1 1 85.55992,0 z" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#000000"
-       id="path3272-2"
-       sodipodi:cx="236.17366"
-       sodipodi:cy="619.96637"
-       sodipodi:rx="16.263456"
-       sodipodi:ry="5.3033009"
-       d="m 252.43712,619.96637 a 16.263456,5.3033009 0 1 1 -32.52692,0 16.263456,5.3033009 0 1 1 32.52692,0 z"
-       transform="matrix(1,0,0,1.6,120.8187,-375.50499)" />
-    <rect
-       style="fill:#000000"
-       id="rect3142-4-5"
-       width="29.977968"
-       height="167.84975"
-       x="343.19342"
-       y="238.98064" />
+<svg width="180" height="387" xmlns="http://www.w3.org/2000/svg">
+ <metadata id="metadata7">image/svg+xml</metadata>
+ <g>
+  <title>Layer 1</title>
+  <g id="layer1">
+   <rect id="rect3142" width="16.42857" height="158.57143" x="0" y="5.5244" fill="#000000"/>
+   <rect id="rect3142-1" width="16.42857" height="158.57143" x="34.66438" y="6.93861" fill="#000000"/>
+   <rect id="rect3142-1-7" width="16.42857" height="158.57143" x="70.21972" y="6.2315" fill="#000000"/>
+   <rect id="rect3226" width="85.55992" height="15.55635" x="0.183" y="150.1154" fill="#000000"/>
+   <rect id="rect3232" width="32.52691" height="221.32442" x="27.05307" y="155.77223" fill="#000000"/>
+   <path id="path3268" d="m86.450043,165.318192a42.779961,9.54594 0 1 1 -85.559933,0a42.779961,9.54594 0 1 1 85.559933,0z" fill="#000000"/>
+   <path id="path3272" d="m59.579971,378.167755a16.26346,8.48528 0 1 1 -32.526922,0a16.26346,8.48528 0 1 1 32.526922,0z" fill="#000000"/>
+   <rect id="rect3232-8" width="32.52691" height="221.32442" x="147.87176" y="155.06508" fill="#000000"/>
+   <path id="path3268-8" d="m175.329407,87.150383a27.34063,87.006607 0 1 1 -54.681236,0a27.34063,87.006607 0 1 1 54.681236,0z" fill="#000000"/>
+   <path id="path3272-2" d="m180.398682,377.460571a16.26346,8.48528 0 1 1 -32.526917,0a16.26346,8.48528 0 1 1 32.526917,0z" fill="#000000"/>
+   <rect id="rect3142-4-5" width="29.97797" height="167.84975" x="150.33627" y="0" fill="#000000"/>
   </g>
+ </g>
 </svg>

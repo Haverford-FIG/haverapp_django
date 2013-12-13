@@ -36,16 +36,16 @@ urlpatterns = patterns('',
 	(r"^SEPTA/?$", transportation, {"page": "SEPTA"}),
 	(r"^bluebus/?$", transportation, {"page": "bluebus"}),
 
-	(r"^dining/?$", new_grub),	
+	(r"^dining/?$", new_grub3),	
 	#Test Views that ultimately should be deleted.
 	(r"^casey/?$", casey),
 	(r"^anh/?$", anh),
 	(r"^fortytwo/?$", fortytwo),
-	(r"^brandon/?$", events_haverford),
+	(r"^brandon/?$", new_grub3),
 	#(r"^jesse/?$", jesse),
 	(r"^caleb/?$", caleb),
 	(r"^dawit/?$", dawit),
-	(r"^blair/?$", blair),
+	(r"^blair/?$", new_grub2),
 	(r"^camp_philly_feed/?$", camp_philly_feed),
 
 

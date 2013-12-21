@@ -62,6 +62,7 @@ def camp_philly_feed(request):
 	return product
 	#return product
 
+#written by Brandon on 12/12/2013
 def new_grub3(request, date=datetime.datetime.today()):
         today = date
         date_formatted  = date.strftime("%Y-%m-%d")
@@ -79,7 +80,11 @@ def new_grub3(request, date=datetime.datetime.today()):
 	#Start to strip the feed for the requested meal:
         for entry in raw_feed.entries[2:]:
                 feed = entry["content"][0]["value"]
-                start_time = entry["gd_when"]["starttime"][11:-10]
+		if "gd_when" in entry.keys():
+                	start_time = entry["gd_when"]["starttime"][11:-10]
+		else:
+			start_time = entry["gd_when"]["starttime"][11:-10]
+
                 #date_time = "18:30:00"
 		hour = int(date_time[:2])
 		mins = int(date_time[3:5])

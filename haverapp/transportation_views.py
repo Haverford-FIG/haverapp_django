@@ -11,64 +11,109 @@ from xml.etree import ElementTree
 
 import re #Import regex expressions.
 
-def strip_table(string):
-	re.sub("\s+","\s", string) #Remove multiple spaces from the "table string."
-	list_table = [[]] #The table organized into list of lists (ie, [row 1, row 2, row n].
-	element_stack = []
+#Written by Casey Falk (12/20/13)
+#Last Modified by "              "
+#NOTES: There was a syntax error in the response, so popping element_stack has to check top.
+def parse_table(table_string):
+ #Wash any extra spaces from the table_string
+ table_string = re.sub("\s+"," ", table_string) #Remove extra spaces from the "table string."
+ table_string = re.sub(">\s",">", table_string) #Remove unnecessary spaces between tags.
+ table_string = re.sub("\s<","<", table_string) #Remove unnecessary spaces between tags.
+ result = []
 
-	#Variable Setup:
-	get_tag, get_data, table_found, tr_found, td_found, in_tag, t_found = False, False, False, False, False, False, False
+ #Variables for Handling Tag Reading
+ skip_to_end_bracket = False
+ closing = False
+ mid_tag = False
+ matched = 0
 
-	tag_datum, cell_datum = "",""
-	for i in string:
-		if i=="<":
-			in_tag=True
-		elif i==">":
-			in_tag=False
-		elif in_tag and not t_found:
-			if i==" ":
-				element_stack.insert(0, tag_datum)
-				tag_datum = ""
-			elif get_tag:
-				tag_datum += i
-		elif get_data and not in_tag:
-			cell_datum += i
-		else:
-			i = i.lower()
-			if i == "/":
-				if get_data:
-					list_table[-1].append(cell_datum)
-					cell_datum = ""
-					get_data = False
-				elif td_found:
-					td_found = False
-				elif tr_found:
-					tr_found = False
-				elif table_found:
-					break #If we finish the table early, break the loop.
-			#Tag-parsing options
-			elif i=="t":
-				t_found = True
-			elif i=="a" and t_found:#Table element.
-				element_stack.append("table")
-				table_found = True
-				t_found = False #If no valid tag is found, ignore it.
-			elif i=="r" and t_found:#Row element.
-				get_data = False
-				tr_found = True
-				element_stack.append("tr")
-				list_table.append([])
-				t_found = False #If no valid tag is found, ignore it.
-			elif (i=="d" or i=="h") and t_found: #Column element.
-				get_data = True
-				td_found = True
-				element_stack.append("td")
-				t_found = False #If no valid tag is found, ignore it.
-			else:
-				if t_found: tag_datum += "t"
-				get_tag = True
- 
-	return list_table
+ #Variables for Table Element Hierarchy
+ element_stack = ["start"]
+
+ for i in table_string:
+  char = i.lower()
+  #Ignore comments
+  if element_stack[-1]=="comment":
+   if matched<2 and char=="-":
+    matched += 1
+   elif matched==2 and char==">" and element_stack[-1]=="comment":
+    element_stack.pop()
+   else:
+    matched = 0
+  #Match tags if they are correct.
+  elif mid_tag:
+   #General Tag Structure
+   if char==">":
+    matched = 0
+    mid_tag = False
+    closing = False
+    skip_to_end_bracket = False
+   elif char==" ": #Ignore any attributes of a tag.
+    skip_to_end_bracket = True
+
+   elif skip_to_end_bracket:
+    continue
+
+   #Comment Syntax
+   elif char=="!" and matched==0:
+    matched += 1
+   elif char=="-" and matched==1:
+    matched += 1
+   elif char=="-" and matched==2:
+    matched=0
+    element_stack.append("comment")
+
+   #Table Element Syntax
+   elif char=="t" and matched==0:
+    matched += 1
+   elif (char=="d" or char=="h") and matched==1: #"TD" Syntax
+    matched = 0
+    skip_to_end_bracket = True
+    if closing:
+     if element_stack[-1]=="td":
+      element_stack.pop()
+    else:
+     result[-1].append("")
+     element_stack.append("td")
+   elif char=="r" and matched==1: #"TR" Syntax
+    matched = 0
+    skip_to_end_bracket = True
+    if closing:
+     if element_stack[-1]=="tr":
+      element_stack.pop()
+    else:
+     result.append([])
+     element_stack.append("tr")
+   elif char=="a" and matched==1: #"TABLE" Syntax
+    matched += 1
+   elif char=="b" and matched==2:
+    matched += 1
+   elif char=="l" and matched==3:
+    matched += 1
+   elif char=="e" and matched==4:
+    matched = 0
+    skip_to_end_bracket = True
+    if closing:
+     if element_stack[-1]=="table":
+      element_stack.pop()
+    else:
+     element_stack.append("table")
+
+   elif char=="/" and matched==0:
+    closing = True
+
+  else:
+   if char=="<":
+    mid_tag = True
+    closing = False
+    matched=0
+   else:
+    #Append the char to the string in the current row-column entry.
+    result[-1][-1] += i #The case-sensitive string.
+ print result
+ print "_____"
+ print result[-1]
+ return result
 
 def find_nth(string, substring, n):
 	result_index = 0
@@ -80,17 +125,27 @@ def find_nth(string, substring, n):
 	return result_index
 
 #Returns a "data" dictionary for the transportation view.
-def get_SEPTA_data():
-	response = urllib2.urlopen('http://app.septa.org/nta/result.php?loc_a=Haverford&loc_z=30th+Street+Station')
-	raw_html = response.read()
-	schedule = 'Haverford to 30th Street (R100)'
-	start = find_nth(raw_html, "<TABLE", 2) #... since SEPTA has a table embedded in a table.
-	end = raw_html.index('</TABLE>')+8
-	
-	raw_table = raw_html[start:end].translate(None, "\n,\t")
-	parsed_table = strip_table(raw_table)	
+def get_SEPTA_data(start_location="Haverford"):
+ #Variable Setup
+ message = ""
+ schedule = "{} to 30th".format(start_location)
+ response = urllib2.urlopen('http://app.septa.org/nta/result.php?loc_a={}&loc_z=30th+Street+Station'.format(start_location))
+ raw_html = response.read()
 
-	return {"schedule": schedule, "table":parsed_table}
+ #Strip the times-table from the SEPTA response.
+ start = find_nth(raw_html, "<TABLE", 2) #... since SEPTA has a table embedded in a table.
+ end = raw_html.index('</TABLE>')+8 
+ raw_table = raw_html[start:end].translate(None, "\n,\t")
+ parsed_table = parse_table(raw_table)	
+
+ #If there was a message rather than times, display the message.
+ if len(parsed_table[1])==1:
+  message = parsed_table[1] 
+ else:
+  #Do some manual choosing regarding which columns we want... 
+  parsed_table = [[c,d,f] for [a,b,c,d,e,f] in parsed_table]  
+
+ return {"schedule": schedule, "table":parsed_table, message:"message"}
 
 #Written by Casey Falk (12/5/13)
 #Last Modified by "      "
@@ -125,10 +180,14 @@ def get_blueBus_data(json_file = None):
  return {"day": day, "schedule_today": schedule_table}
 
 #The main TRANSPORTATION view that funnels view information into one easy-to-use template. 
-def transportation(request, page):
+def transportation(request, page, option=None):
 	if page=="SEPTA":
 		template = "SEPTA.html"
-		data = get_SEPTA_data()
+		data = get_SEPTA_data(option)
+		if option and option=="Ardmore":
+			data["other_option"]="Haverford"
+		else:
+			data["other_option"]="Ardmore"
 		title="SEPTA"
 	elif page=="bluebus":
 		template = "blueBus.html"

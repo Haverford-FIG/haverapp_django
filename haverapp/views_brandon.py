@@ -40,7 +40,7 @@ def events_upenn(request):
 def new_grub2(request, date=datetime.datetime.today()):
 	today = date
 	date_formatted  = date.strftime("%Y-%m-%d")
-	date_tomorrow = (today + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+	date_tomorrow = today.strftime("%Y-%m-%d")
 	raw_link = "http://www.google.com/calendar/feeds/hc.dining%40gmail.com/public/full?max-results=5&fields=entry(content,gd:when(@startTime))&start-min={}&start-max={}&orderby=starttime&sortorder=descending&strict=true&prettyprint=true".format(date_formatted, date_tomorrow)
         raw_feed = feedparser.parse(raw_link)
 	
@@ -57,7 +57,6 @@ def new_grub2(request, date=datetime.datetime.today()):
         for entry in raw_feed.entries[2:]:
                 feed = entry["content"][0]["value"]
 		start_time = entry["gd_when"]["starttime"][11:-10]
-		date_time = "10:30:00"
 		if start_time ==  breakfast  and date_time  >=  breakfast and date_time < lunch:
 			print "got here"
 			for x in feed:

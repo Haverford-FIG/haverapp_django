@@ -1,6 +1,32 @@
 {% autoescape off %} 
 <h1>{{ data.schedule }}</h1>
-{{ data.table }}
+{% if data.message %}
+ {{ data.message }}
+{% else %}
+ <div class="pseudoTable">
+ {% for row in data.table %}
+  <div class="pseudoTableRow">
+  {% for element in row %}
+   {% if forloop.counter == 3 and element != "Status" %}
+    {% if element == "On time" %}
+     <div class="pseudoTableElement highlightPositive">
+    {% else %}
+     <div class="pseudoTableElement highlightNegative">
+    {% endif %}
+   {% else %}
+   <div class="pseudoTableElement">
+   {% endif %}
+
+   {{ element }}
+   </div>
+  {% endfor %}
+  </div>
+ {% endfor %}
+ </div>
+
+{% endif %}
 {% endautoescape %} 
+
+<a href="/SEPTA_{{ data.other_option }}/" class="appOptionLink">{{ data.other_option }} to 30th</a>
 
 

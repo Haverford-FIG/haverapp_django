@@ -9,7 +9,6 @@
  src: url(ubuntu_reg.ttf) format("truetype");
 }
 
-
 table {
  font-family: inherit;
  text-align:center;
@@ -76,6 +75,45 @@ h1 {
  font-weight: bold;
 }
 
+.pseudoTable {
+ display: inline-block;
+ margin-bottom:20px;
+ width:100%;
+}
+
+.pseudoTableRow {
+ display: block;
+}
+
+.pseudoTableRow:first-child {
+ font-weight:bold;
+}
+
+.pseudoTableElement {
+ display: inline-block;
+ padding: 10px; 
+}
+
+.highlightPositive {
+ color:green;
+}
+
+.highlightNegative {
+ color:red;
+}
+
+.appOptionLink,.appOptionLink:visited {
+ display:inline-block;
+ color: maroon;
+ background-color: #DEDEDE;
+ padding:10px;
+ margin-bottom:20px;
+ border-radius:15px;
+}
+
+.appOptionLink:hover {
+ background-color: #FFFF47;
+}
 
 
 .menuText {

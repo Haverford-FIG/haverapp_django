@@ -62,61 +62,7 @@ def camp_philly_feed(request):
 	return product
 	#return product
 
-#written by Brandon on 12/12/2013
-def new_grub3(request, date=datetime.datetime.today()):
-        today = date
-        date_formatted  = date.strftime("%Y-%m-%d")
-        date_tomorrow = (today + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-        raw_link = "http://www.google.com/calendar/feeds/hc.dining%40gmail.com/public/full?max-results=5&fields=entry(content,gd:when(@startTime))&start-min={}&start-max={}&orderby=starttime&sortorder=descending&strict=true&prettyprint=true".format(date_formatted, date_tomorrow)
-        raw_feed = feedparser.parse(raw_link)
-
-        date_time = str(date)[11:-7]
-        todays_feed = ""
-        
-	#set the different hours and minutes for breakfast and lunch
-	lunch = 11
-	dinner = 17
-        
-	#Start to strip the feed for the requested meal:
-        for entry in raw_feed.entries[2:]:
-                feed = entry["content"][0]["value"]
-		if "gd_when" in entry.keys():
-                	start_time = entry["gd_when"]["starttime"][11:-10]
-		else:
-			start_time = entry["gd_when"]["starttime"][11:-10]
-
-                #date_time = "18:30:00"
-		hour = int(date_time[:2])
-		mins = int(date_time[3:5])
-                if hour  < lunch and start_time == "07:30:00":
-			todays_feed += "<h1>Breakfast</h1>"
-                        for x in feed:
-                                if not number(x):
-                                        todays_feed += x
-                                else:
-                                        todays_feed += " "
-                        todays_feed += "</br>"
-                        break
-                elif hour >= lunch and hour  < dinner and start_time == "11:00:00":
-			todays_feed += "<h1>Lunch</h1>"
-                        for x in feed:
-                                if not number(x):
-                                        todays_feed += x
-                                else:
-                                        todays_feed += " "
-                        todays_feed += "</br>"
-                        break
-                elif hour >= dinner and hour <= 24 and start_time == "17:00:00":
-			todays_feed += "<h1>Dinner</h1>"
-			for x in feed:
-                                if not number(x):
-                                        todays_feed += x
-                                else:
-                                        todays_feed += " "
-                        todays_feed += "</br>"
-                        break
-
-        return HttpResponse(todays_feed)
+###Casey: I extracted new_grub3 and moved it into views.py
 
 def number(x):
         numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]

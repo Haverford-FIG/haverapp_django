@@ -1,44 +1,16 @@
-<div class="blusBusGlobalContainer">
-<link rel="stylesheet" href="{{ STATIC_URL }}/css/apps/blueBusApp.css" />
-<h1>Blue Bus:</h1> 
 {% autoescape off %}
-{% if error %}
-        <div class="errorMessage">
-                {{ error }}
-        </div>
-{% else %}
-        <div class="blueBusList">
-                {{select_menu}} at <input class="blueBusTime blueBusInput" type="text" value="{{time}}"/>:
-                {% if next_buses %} 
-                                {% for item in next_buses %}
-                                        <ul class="blueBusBullet">{{item}}</ul>
-                                {% endfor %}
-                {% else %}
-                        <center>No more buses!</center>
-                {% endif %}
-        </div>
-        <div class="blueBusScheduleContainer">
-	<div class="blueBusTable">
-	{% for heading, col in data.schedule_today %}
-        	<div class="blueBusCol">
-        	<div class="blueBusHeading">{{heading}}</div>
-			{% for entry in col %} 
-				<div class="blueBusEntry">{{ entry.time }}</div>
-			 {% endfor %}
-		</div>
-        {% endfor %}
-	</div>
-        </div>
-        
-        <a href="http://www.brynmawr.edu/transportation/bico.shtml#monday"
-                class="blueBusFull blueBusLink" title="Jump over to the blue bus site." >
-                Full Schedule</a>
-        <div class="blueBusNow blueBusLink" title="Look at today's schedule.">Now</div>
-        <input type="text" class="blueBusDate defaultInputButton button" value="{{date}}"/>
-        
-{% endif %}
-{% endautoescape %}
 
-        <script src="{{ STATIC_URL }}/js/apps/blueBusApp.js"></script>
-                </tr>
-</div>
+<h1>{{ data.day }}</h1>
+
+{% if data.error %}
+ <div class="message">
+  {{ data.error }}
+ </div>
+{% else %}
+ {{data.schedule_table}}
+{% endif %}
+
+
+
+{% endautoescape%}
+

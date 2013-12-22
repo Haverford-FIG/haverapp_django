@@ -1,7 +1,9 @@
 {% autoescape off %} 
 <h1>{{ data.schedule }}</h1>
 {% if data.message %}
- {{ data.message }}
+ <div class="message">
+  {{ data.message }}
+ </div>
 {% else %}
  <div class="pseudoTable">
  {% for row in data.table %}

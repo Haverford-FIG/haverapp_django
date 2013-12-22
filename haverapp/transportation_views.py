@@ -140,12 +140,12 @@ def get_SEPTA_data(start_location="Haverford"):
 
  #If there was a message rather than times, display the message.
  if len(parsed_table[1])==1:
-  message = parsed_table[1] 
+  message = parsed_table[1][0] 
  else:
   #Do some manual choosing regarding which columns we want... 
   parsed_table = [[c,d,f] for [a,b,c,d,e,f] in parsed_table]  
 
- return {"schedule": schedule, "table":parsed_table, message:"message"}
+ return {"schedule": schedule, "table":parsed_table, "message":message}
 
 #Written by Casey Falk (12/5/13)
 #Last Modified by "      "
@@ -158,26 +158,29 @@ def sort_by_name_field(query):
    parsed_entries[entry.name] = [entry]
  return parsed_entries
 
-#Written by Casey Falk (12/5/13)
+#Written by Casey Falk (12/21/13)
 #Last Modified by "      "
-def get_blueBus_data(json_file = None):
+def get_blueBus_data():
+ #Variable Setup
+ error = ""
  #Get the appropriate day of the week.
- day = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][datetime.datetime.now().weekday()]
+ day = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][datetime.datetime.now().weekday()]
 
  if day=="Saturday":
-  if datetime.now().time < datetime.datetime(0,0,0,15):
-   day = " (Night)"
+  if datetime.datetime.now().time < datetime.datetime(1,1,1,15).time:
+   day += " (Night)"
   else:
-   day = " (Day)"
+   day += " (Day)"
 
  #Get the data for today.
- query = BlueBusDay.objects.filter(day=day)
+ query = BlueBus.objects.filter(day=day)
  parsed_entries = sort_by_name_field(query)
  schedule_table = [[heading, parsed_entries[heading]] for heading in parsed_entries.keys()]
 
- #Get the unique headings from the first 10 queries to use for the data. (TODO: Generalize!) 
+ if not schedule_table:
+  error = "No times left!"
  
- return {"day": day, "schedule_today": schedule_table}
+ return {"day": day, "error":error,  "schedule_table": schedule_table}
 
 #The main TRANSPORTATION view that funnels view information into one easy-to-use template. 
 def transportation(request, page, option=None):
@@ -197,6 +200,6 @@ def transportation(request, page, option=None):
 		template = "blueBus.html"
 		data = {"heading_1":[], "heading_2":[]}
 		title="404"
-	return render(request, "transportation.html", {"template":template, "data":data, "title": title})
+	return render(request, "app_container.html", {"template":template, "data":data, "title": title})
 
 

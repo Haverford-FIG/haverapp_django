@@ -1,0 +1,12 @@
+{# This should be made... organized. Oh, and pretty. #}
+{# The idea here: display an (error) message if there is one, else display the goods. #}
+
+<h1>{{date|date:"M. d (D)"}}</h1>
+
+{% if message %}
+ <div class="message">
+ {{message}}
+ </div>
+{% else %} 
+ {{feed}}
+{% endif %}

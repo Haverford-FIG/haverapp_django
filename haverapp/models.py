@@ -37,7 +37,7 @@ def org_times(number_of_columns, times):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # #  Blue Bus # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-class BlueBusDay(models.Model):
+class BlueBus(models.Model):
 	day = models.CharField(max_length=9)
 	time = models.TimeField()
 	name = models.CharField(max_length=30)
@@ -48,7 +48,7 @@ class BlueBusDay(models.Model):
 #Written by Casey Falk (12/5/13)
 #Last Modified by "    "
 #  Store a new entry in the database with the given fields. 
-def store_new_BlueBusDay_entry(day, time, name):
+def store_BlueBus_entry(day, time, name):
  new_entry = BlueBusDay()
  new_entry.day = day
  new_entry.time = time
@@ -57,7 +57,7 @@ def store_new_BlueBusDay_entry(day, time, name):
 
 #Written by Casey Falk (12/5/13)
 #Last Modified by "     "
-def update_BlueBusDay_entries_on(day, data_matrix):
+def update_BlueBus_entries_on(day, data_matrix):
  try:
   #Variable Setup
   i = 1
@@ -107,7 +107,7 @@ def organize_bus_times(number_of_columns, times):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # #  Swat Van   # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-class SwatVanEntry(models.Model):
+class SwatVan(models.Model):
 	day = models.CharField(max_length=9)
 	time = models.TimeField()
 	name = models.CharField(max_length=30)
@@ -131,7 +131,7 @@ def organize_trico_van(van_route, times):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # #  Events # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-class EventEntry(models.Model):
+class Event(models.Model):
 	title = models.CharField(max_length=10)
 	campus = models.CharField(max_length=15)
 	location = models.CharField(max_length=25, blank=True, null=True)
@@ -145,9 +145,9 @@ class EventEntry(models.Model):
 #Written by Casey Falk and Jesse Pazdera (12/12/13)
 #Last Modified by "    "
 #  Store a new entry in the database with the given fields. 
-def store_new_EventEntry(data_dict):
+def store_new_Event(data_dict):
  try:
-  new_entry = EventEntry(campus, data=data_dict)
+  new_entry = Event(campus, data=data_dict)
   new_entry.campus = campus
   new_entry.save()
  except Exception as e:
@@ -156,7 +156,7 @@ def store_new_EventEntry(data_dict):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # #  News # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-class NewsEntry(models.Model):
+class News(models.Model):
 	publisher = models.CharField(max_length=20)
 	title = models.CharField(max_length=70)
 	author= models.CharField(max_length=40)
@@ -171,7 +171,7 @@ class NewsEntry(models.Model):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # #  Dining   # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-class DiningEntry(models.Model):
+class Dining(models.Model):
 	date = models.DateField()
 	meal = models.CharField(max_length=10)
 	location = models.CharField(max_length=10)

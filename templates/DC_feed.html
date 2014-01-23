@@ -7,6 +7,8 @@
  <div class="message">
  {{message}}
  </div>
-{% else %} 
+{% else %}
+{% autoescape off %} 
  {{feed}}
+{% endautoescape %}
 {% endif %}

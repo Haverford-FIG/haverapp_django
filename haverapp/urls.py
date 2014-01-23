@@ -13,7 +13,6 @@ from haverapp.views_jesse import *
 from haverapp.vuze_blair import *
 
 
-
 from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -37,7 +36,7 @@ urlpatterns = patterns('',
 	(r"^SEPTA_[Hh]averford/?$", transportation, {"page": "SEPTA", "option":"Haverford"}),
 	(r"^SEPTA_[aA]rdmore/?$", transportation, {"page": "SEPTA", "option":"Ardmore"}),
 	(r"^bluebus/?$", transportation, {"page": "bluebus"}),
-
+#	(r"^studentnews/?$", studentnews, {"page":"studentnews"}),
 	(r"^dining/?$", get_DC_menu),	
 	#Test Views that ultimately should be deleted.
 	(r"^casey/?$", casey),

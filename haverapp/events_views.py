@@ -40,7 +40,7 @@ def events_haverford():
 		product += '<br/>' +  str(child[3].text)+'</div>'
 	product += '<a href="/events/"><div style="font-size:60pt;text-align:center">Back</div></a>'
 """
-	product = [{"title":child[0].text,"date": child[1].text ,"description":child[2].text ,"url":child[3].text} for child in xml_response]
+	product = [{"title":child[0].text,"date": child[1].text ,"description":child[3].text} for child in xml_response]
 
 	return product
 

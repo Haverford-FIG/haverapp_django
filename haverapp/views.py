@@ -5,6 +5,7 @@ from django.shortcuts import render
 from models import *
 
 #Import the libraries to parse xml and strip it.
+import numpy
 import urllib2
 import datetime
 import feedparser
@@ -22,7 +23,10 @@ def menu_screen(request, page="index"):
   title="Events"
  elif page=="transportation":
   menu="transportation_menu.html"
-  title="Transportation" 
+  title="Transportation"
+ elif page=="studentnews":
+  menu="student_news.html"
+  title="Student News" 
  else:
   menu ="menu.html"
   title="HaverApp"
@@ -53,7 +57,7 @@ def get_DC_menu(request, date=datetime.datetime.today()):
 		if "gd_when" in entry.keys():
                 	start_time = entry["gd_when"]["starttime"][11:-10]
 		else:
-			start_time = entry["gd_when"]["starttime"][11:-10]
+			start_time = "07:30:00"
 
                 #date_time = "18:30:00"
 		hour = int(date_time[:2])
@@ -78,18 +82,31 @@ def get_DC_menu(request, date=datetime.datetime.today()):
                         break
                 elif hour >= dinner and hour <= 24 and start_time == "17:00:00":
 			todays_feed += "<h1>Dinner</h1>"
+			counter=0
 			for x in feed:
                                 if not number(x):
-                                        todays_feed += x
-                                else:
-                                        todays_feed += " "
+                                	todays_feed += x
+                                elif number(x):
+					counter += 1
+					if (counter%4==0):
+						todays_feed += "</br>"
+				else:
+                                       todays_feed += " "
                         todays_feed += "</br>"
                         break
 	if not todays_feed:
 		message="Apparently, nothing is on the menu for today!"
 	return render(request, "app_container.html", {"date":date, "message":message, "title": "DC Grub", "feed":todays_feed, "template": "DC_feed.html"})
 
+def clean_Dining_Menu(todays_fee):
+	print "hello"
 
+def number(x):
+        numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+        if x in numbers:
+                return True
+        else:
+                return False
 
 #Sample "Events" web-stripper.
 #def events(request):

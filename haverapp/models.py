@@ -33,6 +33,7 @@ def org_times(number_of_columns, times):
                 else:
                         timetable = timetable + [current_row]
                         current_row = []
+	return timetable
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # #  Blue Bus # # # # # # # # # # # # # # # # # # #
@@ -49,7 +50,7 @@ class BlueBus(models.Model):
 #Last Modified by "    "
 #  Store a new entry in the database with the given fields. 
 def store_BlueBus_entry(day, time, name):
- new_entry = BlueBusDay()
+ new_entry = BlueBus()
  new_entry.day = day
  new_entry.time = time
  new_entry.name = name
@@ -57,7 +58,7 @@ def store_BlueBus_entry(day, time, name):
 
 #Written by Casey Falk (12/5/13)
 #Last Modified by "     "
-def update_BlueBus_entries_on(day, data_matrix):
+def update_BlueBus_db(day, data_matrix):
  try:
   #Variable Setup
   i = 1
@@ -67,7 +68,7 @@ def update_BlueBus_entries_on(day, data_matrix):
   if type(data_matrix)!=list:
    raise Exception("Please use the output of the organize_bus_times function as input.")
   #Completely replace the objects on the given day. 
-  BlueBusDay.objects.filter(day=day).delete()    
+  BlueBus.objects.filter(day=day).delete()    
 
   #Create the new database entries.
   for row in data_matrix:
@@ -81,13 +82,13 @@ def update_BlueBus_entries_on(day, data_matrix):
       raw_time = "0" + raw_time
     time = datetime.strptime(raw_time, "%I:%M%p")
     name = headers[header_index]
-    store_new_BlueBusDay_entry(day, time, name)
+    store_BlueBus_entry(day, time, name)
 
-    header_index += 1 #NOW save the BlueBusDay object to the database.
+    header_index += 1 #NOW save the BlueBus object to the database.
     i += 1 #Increment the total number of entries made.
   print "Database entries for \"{}\" updated successfully!".format(day)
  except Exception as e:
-  raise Exception("Could not create data entry {} (\"{}\"): {}".format(i, raw_time, e))
+  raise Exception("Could not create data entry {}i: {}".format(i, e))
 
 #FUNCTION WRITTEN BY JESSE PAZDERA, LAST UPDATE: 12/7/13
 def organize_bus_times(number_of_columns, times):

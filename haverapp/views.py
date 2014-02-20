@@ -14,6 +14,14 @@ from xml.etree import ElementTree
 from transportation_views import *
 from events_views import *
 
+
+
+def main_page(request):
+ 	return render(request, "index.html")
+
+
+
+
 def menu_screen(request, page="index"):
  if page=="health":
   menu="health_menu.html"

@@ -49,7 +49,7 @@ urlpatterns = patterns('',
 	(r"^blair/?$", new_grub2),
 	(r"^camp_philly_feed/?$", camp_philly_feed),
 
-
+	(r"^my_main_page/?$", main_page),
 	
     # Uncomment the next line to enable the admin:
     	(r'^admin/', include(admin.site.urls)),

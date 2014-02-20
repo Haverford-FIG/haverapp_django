@@ -25,7 +25,7 @@ def events_bryn_mawr():
                         product += '<p>'+ grandchild[1].text.encode('utf-8')+'</p>'
                         product += '</div>'
         return HttpResponse(product)"""
-	product=[{"title":grandchild[0].text,"description":grandchild[1].text,"url":grandchild[5].text} for child in xml_response for grandchild in child.findall("item")] 
+	product=[{"title":grandchild[0].text,"description":grandchild[1].text,"url":grandchild[5].text} for child in xml_response for grandchild in child.findall("item")]
 	return product
 
 
@@ -35,7 +35,7 @@ def events_haverford():
 	"""
         product = ''
         for child  in xml_response:
-		product += u"<div style='border:solid'><div><h1>{0}</h1></div> <div>{1}</div>".format(child[0].text, child[1].text)	
+		product += u"<div style='border:solid'><div><h1>{0}</h1></div> <div>{1}</div>".format(child[0].text, child[1].text)
 		product += str(child[2].text)
 		product += '<br/>' +  str(child[3].text)+'</div>'
 	product += '<a href="/events/"><div style="font-size:60pt;text-align:center">Back</div></a>'
@@ -47,7 +47,7 @@ def events_haverford():
 def events_swarthmore():
         raw_response = urllib2.urlopen("http://calendar.swarthmore.edu/calendar/RSSSyndicator.aspx?category=&location=&type=N&binary=Y&keywords=&number=20&ics=Y").read()
         xml_response = ElementTree.fromstring(raw_response)
-	
+
 	"""
 	product = ''
 	for child in xml_response:
@@ -62,7 +62,7 @@ def events_swarthmore():
 	return product
 
 # Written by Brandon on 12/5/2013
-# 
+#
 def events_upenn():
         raw_response = urllib2.urlopen("http://www.upenn.edu/calendar-export/?type=rss2&showndays=3").read()
         xml_response = ElementTree.fromstring(raw_response)
@@ -106,7 +106,7 @@ def camp_philly_feed():
         return product
 
 
-#The main EVENTS view that funnels view information into one easy-to-use template. 
+#The main EVENTS view that funnels view information into one easy-to-use template.
 def events(request, page):
 	template = "event_grid.html"
 	if page=="haverford":
@@ -126,6 +126,6 @@ def events(request, page):
 		title= "Campus Philly"
 	else:
 		return HttpResponse("Events not found!")
-	return render(request, "app_container.html", {"template":template, "data":data, "title": title})
+	return render(request, "app_container.html", {"template":templatei "data":data, "title": title})
 
 

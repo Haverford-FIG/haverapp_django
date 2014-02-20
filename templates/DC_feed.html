@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 {# This should be made... organized. Oh, and pretty. #}
 {# The idea here: display an (error) message if there is one, else display the goods. #}
 
@@ -7,6 +9,8 @@
  <div class="message">
  {{message}}
  </div>
+
+<input type=text id=datepicker >
 {% else %}
 {% autoescape off %} 
  {{feed}}

@@ -30,19 +30,19 @@ def events_bryn_mawr():
 
 
 def events_haverford():
-	raw_response = urllib2.urlopen("http://www.haverford.edu/goevents/").read()
-        xml_response = ElementTree.fromstring(raw_response)
-	"""
+    raw_response = urllib2.urlopen("http://www.haverford.edu/goevents/").read()
+    xml_response = ElementTree.fromstring(raw_response)
+    """
         product = ''
         for child  in xml_response:
 		product += u"<div style='border:solid'><div><h1>{0}</h1></div> <div>{1}</div>".format(child[0].text, child[1].text)
 		product += str(child[2].text)
 		product += '<br/>' +  str(child[3].text)+'</div>'
 	product += '<a href="/events/"><div style="font-size:60pt;text-align:center">Back</div></a>'
-"""
-	product = [{"title":child[0].text,"date": child[1].text ,"description":child[3].text} for child in xml_response]
+    """
+    product = [{"title":child[0].text,"date": child[1].text ,"time":child[2].text,"description":child[3].text} for child in xml_response]
 
-	return product
+    return product
 
 def events_swarthmore():
         raw_response = urllib2.urlopen("http://calendar.swarthmore.edu/calendar/RSSSyndicator.aspx?category=&location=&type=N&binary=Y&keywords=&number=20&ics=Y").read()
@@ -108,24 +108,34 @@ def camp_philly_feed():
 
 #The main EVENTS view that funnels view information into one easy-to-use template.
 def events(request, page):
-	template = "event_grid.html"
-	if page=="haverford":
-		data = events_haverford()
-		title="Haverford"
-	elif page=="brynmawr":
-		data = events_bryn_mawr()
-		title="Bryn Mawr"
-	elif page=="swarthmore":
-		data = events_swarthmore()
-		title="Swarthmore"
-	elif page=="upenn":
-		data = events_upenn()
-		title="UPenn"
-	elif page=="campus_philly":
-		data = camp_philly_feed()
-		title= "Campus Philly"
-	else:
-		return HttpResponse("Events not found!")
-	return render(request, "app_container.html", {"template":template, "data":data, "title": title})
+    template = "event_grid.html"
+    if page=="haverford":
+        data = events_haverford()
+        title="Haverford"
+    elif page=="brynmawr":
+        data = events_bryn_mawr()
+        title="Bryn Mawr"
+    elif page=="swarthmore":
+        data = events_swarthmore()
+        title="Swarthmore"
+    elif page=="upenn":
+        data = events_upenn()
+        title="UPenn"
+    elif page=="campus_philly":
+        data = camp_philly_feed()
+        title= "Campus Philly"
+    else:
+        return HttpResponse("Events not found!")
+
+    new_data = [[None, list()]]
+    for entry in data:
+        date = entry["date"]
+        if new_data[-1][0]==date:
+            new_data[-1][1].append(entry)
+        else:
+            new_data.append([entry["date"], [entry]])
+    new_data.pop(0)
+    print new_data
+    return render(request, "app_container.html", {"template":template, "data":new_data, "title": title}    )
 
 

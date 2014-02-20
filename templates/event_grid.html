@@ -1,15 +1,21 @@
+
 <div id="eventGrid">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.0/jquery.mobile.min.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.0/jquery.mobile.min.js"></script>
-    
-<ul data-role="listview" data-inset="true">  
-    {% for entry in data %}
-    <li><a href={{entry.url}}><h2>{{entry.title}}</h2>
-        <p><strong>{{entry.description}}</strong></p>
-	    <p class="ui-li-aside"><strong>{{entry.date}}</strong></div>
-    </a></li>
-</ul>
 
-{% endfor %} 
+    <ul data-role="listview" data-inset="true">  
+     {% for date_packet in data %}
+            <li data-role="list-divider">{{date_packet.0}}</li>
+            {% for entry in date_packet.1 %}
+            <li>
+            <a href="{%if entry.url%}{{entry.url}}{%else%}#{%endif%}">
+                <h2>{{entry.title}}</h2>
+                <p><strong>{{entry.description}}</strong></p>
+                <p class="ui-li-aside"><strong>{{entry.time}}</strong></p>
+            </a></li>
+        {% endfor %} 
+    {% endfor %} 
+    </ul>    
+
 </div>

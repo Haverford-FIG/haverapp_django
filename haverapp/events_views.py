@@ -126,6 +126,6 @@ def events(request, page):
 		title= "Campus Philly"
 	else:
 		return HttpResponse("Events not found!")
-	return render(request, "app_container.html", {"template":templatei "data":data, "title": title})
+	return render(request, "app_container.html", {"template":template, "data":data, "title": title})
 
 

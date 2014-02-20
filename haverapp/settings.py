@@ -1,6 +1,7 @@
 import os
 
-PROJECT_ROOT = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
+print PROJECT_ROOT
 
 # Django settings for haverapp project.
 DEBUG = True

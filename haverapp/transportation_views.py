@@ -160,17 +160,22 @@ def sort_by_name_field(query):
 
 #Written by Casey Falk (12/21/13)
 #Last Modified by "      "
-def get_blueBus_data():
+def get_blueBus_data(date=None):
  #Variable Setup
  error = ""
+ #Get the input date if possible, else show the current day.
+ try:
+  date = datetime.datetime.strptime(date,'%m/%d/%Y')
+ except:
+  date = datetime.datetime.now()
+ 
+
  #Get the appropriate day of the week.
- day = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][datetime.datetime.now().weekday()]
+ day = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][date.weekday()]
 
  if day=="Saturday":
   if datetime.datetime.now().time < datetime.datetime(1,1,1,15).time:
    day += " (Night)"
-  else:
-   day += " (Day)"
 
  #Get the data for today.
  query = BlueBus.objects.filter(day=day)
@@ -183,7 +188,7 @@ def get_blueBus_data():
  return {"day": day, "error":error,  "schedule_table": schedule_table}
 
 #The main TRANSPORTATION view that funnels view information into one easy-to-use template. 
-def transportation(request, page, option=None):
+def transportation(request, page, option=None, year="", month="", day=""):
 	if page=="SEPTA":
 		template = "SEPTA.html"
 		data = get_SEPTA_data(option)
@@ -194,7 +199,8 @@ def transportation(request, page, option=None):
 		title="SEPTA"
 	elif page=="bluebus":
 		template = "blueBus.html"
-		data = get_blueBus_data()
+		date = "{}/{}/{}".format(month,day,year);
+		data = get_blueBus_data(date=date)
 		title="Blue Bus"
 	else:
 		template = "blueBus.html"

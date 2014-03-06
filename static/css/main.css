@@ -20,10 +20,6 @@ body {
  background-color: maroon;
 }
 
-body {
- background-color: maroon;
-}
-
 a:link{
  text-decoration:none;
  color:black;
@@ -62,6 +58,8 @@ h1 {
 /* CSS for Transport Subfunctions (eg: Blue Bus, SEPTA, etc.) */
 .blueBusTable {
  display: inline-block;
+ width:100%;
+ margin:0 auto;
 }
 .blueBusCol {
  display:inline-block;
@@ -223,4 +221,30 @@ h1 {
  position: relative;
  display: inline-block;
 }
+
+.ui-datepicker-month {
+ color: #FFF;
+ text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.ui-datepicker-year {
+ color: #FFF;
+ text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.ui-datepicker-calendar {
+ color: #FFF;
+ text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.ui-icon {
+ color: #FFF;
+ text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+a:link.ui-state-default{
+ color: #FFF;
+ font-weight: bold;
+}
+
 

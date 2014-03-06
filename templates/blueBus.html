@@ -7,17 +7,22 @@
   {{ data.error }}
  </div>
 {% else %}
- {{data.schedule_table}}
+ <div class="blueBusTable">
+ {% for column in data.schedule_table %}
+  <div class="blueBusCol">{{column.0}} 
+  {% for entry in column.1 %}
+    <div class="blueBusEntry">{{entry.time}}</div>
+  {% endfor %}
+  </div>
+ {% endfor %}
+ </div>
 {% endif %}
 
 <input type="text" id="dateField" />
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-<script>
- $( "#dateField" ).datepicker();
-</script>
+<script src="{{STATIC_URL}}js/main.js"></script>
 
 {% endautoescape%}
 

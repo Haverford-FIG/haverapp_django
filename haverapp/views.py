@@ -60,17 +60,43 @@ def get_DC_menu(request, date=datetime.datetime.today()):
 	dinner = 17
         
 	#Start to strip the feed for the requested meal:
-        for entry in raw_feed.entries[2:]:
+    	final = []    
+	for entry in raw_feed.entries[2:]:
                 feed = entry["content"][0]["value"]
+		counter = 0
+		for x in feed:
+                	if not number(x):
+        	                todays_feed += x
+                        else:
+				if counter%4 == 0:
+                                	todays_feed += "<br>"
+				counter = counter + 1
+		final.append(todays_feed)
+		todays_feed = ""
+
+	todays_feed = ""
+	if len(final) == 3:
+		todays_feed += "<h2>Breakfast</h2>" + final[1][4:]
+		todays_feed += "<h2>Lunch</h2>" + final[0][4:]
+		todays_feed += "<h2>Dinner</h2>" + final[2][4:]
+	else:
+		todays_feed += "<h2>Brunch</h2>" + final[0][4:]
+		todays_feed += "<h2>Dinner</h2>" + final[1][4:]
+
+	"""
 		if "gd_when" in entry.keys():
                 	start_time = entry["gd_when"]["starttime"][11:-10]
 		else:
 			start_time = "07:30:00"
 
-                #date_time = "18:30:00"
+		# print date_time
+                # date_time = "09:30:00"
 		hour = int(date_time[:2])
 		mins = int(date_time[3:5])
-                if hour  < lunch and start_time == "07:30:00":
+		print "Start time: " + start_time
+                print "hour: " + date_time[:2]
+	
+		if hour  < lunch and start_time == "07:30:00":
 			todays_feed += "<h1>Breakfast</h1>"
                         for x in feed:
                                 if not number(x):
@@ -102,6 +128,7 @@ def get_DC_menu(request, date=datetime.datetime.today()):
                                        todays_feed += " "
                         todays_feed += "</br>"
                         break
+	"""
 	if not todays_feed:
 		message="Apparently, nothing is on the menu for today!"
 	return render(request, "app_container.html", {"date":date, "message":message, "title": "DC Grub", "feed":todays_feed, "template": "DC_feed.html"})

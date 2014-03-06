@@ -25,7 +25,7 @@ def events_bryn_mawr():
                         product += '<p>'+ grandchild[1].text.encode('utf-8')+'</p>'
                         product += '</div>'
         return HttpResponse(product)"""
-	product=[{"title":grandchild[0].text,"description":grandchild[1].text,"url":grandchild[5].text} for child in xml_response for grandchild in child.findall("item")]
+	product=[{"title":grandchild[0].text,"description":grandchild[1].text,"url":grandchild[5].text, "pubDate":grandchild[4].text[:17]} for child in xml_response for grandchild in child.findall("item")]
 	return product
 
 
@@ -58,7 +58,7 @@ def events_swarthmore():
 			product += '</div>'
         return HttpResponse(product)
 	"""
-	product	= [{"title":grandchild[0].text, "url":grandchild[1].text, "description":grandchild[3].text[9:-3]} for item in xml_response for grandchild in item.findall("item")]
+	product	= [{"title":grandchild[0].text, "url":grandchild[1].text, "description":grandchild[3].text[9:-3], "category":grandchild[5].text} for item in xml_response for grandchild in item.findall("item")]
 	return product
 
 # Written by Brandon on 12/5/2013
@@ -77,7 +77,7 @@ def events_upenn():
                         product += '</div>'
         return HttpResponse(product)
 	"""
-	product = [{"title":grandchild[0].text, "description":strip_tags(grandchild[2].text), "url":grandchild[1].text} for child in xml_response for grandchild in child.findall('item')]
+	product = [{"title":grandchild[0].text, "description":strip_tags(grandchild[2].text), "url":grandchild[1].text, "pubDate":strip_tags(grandchild[2].text[:23])} for child in xml_response for grandchild in child.findall('item')]
         return product
 
 #written by blair. last edited by blair 12/05/2013
@@ -129,13 +129,27 @@ def events(request, page):
 
     new_data = [[None, list()]]
     for entry in data:
-        date = entry["date"]
+	if "date" in entry.keys():
+	    date = entry["date"]
+	elif "category" in entry.keys():
+	    date = entry["category"]
+	elif "pubDate" in entry.keys():
+	    date = entry["pubDate"]
+	elif "description" in entry.keys():
+	    date = entry["description"]
         if new_data[-1][0]==date:
             new_data[-1][1].append(entry)
         else:
-            new_data.append([entry["date"], [entry]])
+	    if "date" in entry.keys():# works for haverford events
+		new_data.append([entry["date"], [entry]])
+	    elif "category" in entry.keys(): #this is for the swat events
+		new_data.append([entry["category"], [entry]])
+	    elif "pubDate" in entry.keys(): # this is for Bryn Mawr events
+		new_data.append([entry["pubDate"], [entry]])
+	    elif "description" in entry.keys(): #works for byrn mawr, but also a good default
+		new_data.append([entry["description"], [entry]])
+
     new_data.pop(0)
-    print new_data
     return render(request, "app_container.html", {"template":template, "data":new_data, "title": title}    )
 
 

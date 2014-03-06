@@ -39,7 +39,7 @@ def org_times(number_of_columns, times):
 # # # # # # # #  Blue Bus # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 class BlueBus(models.Model):
-	day = models.CharField(max_length=9)
+	day = models.CharField(max_length=20)
 	time = models.TimeField()
 	name = models.CharField(max_length=30)
 

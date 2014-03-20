@@ -3,16 +3,6 @@ from django.conf.urls import *
 #Import HaverApp Functions here --Casey
 
 from haverapp.views import *
-from haverapp.views_casey import *
-from haverapp.views_brandon import *
-from haverapp.views_fortytwo import *
-from haverapp.views_Dawit import *
-from haverapp.views_caleb import *
-from haverapp.views_anh import *
-from haverapp.views_jesse import *
-from haverapp.vuze_blair import *
-
-
 from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -32,6 +22,11 @@ urlpatterns = patterns('',
 	(r"^events_upenn/?$", events, {"page": "upenn"}),
 	(r"^events_campus_philly/?$", events, {"page": "campus_philly"}),
 	(r"^transportation/?$", menu_screen, {"page": "transportation"}),
+	
+	
+	(r"^student_?news?/?$", menu_screen, {"page": "studentnews"}),
+	(r"^haverford_?news?/?$", news, {"page": "haverfordnews"}),
+
 	(r"^SEPTA/?$", transportation, {"page": "SEPTA", "option":"Haverford"}),
 	(r"^SEPTA_[Hh]averford/?$", transportation, {"page": "SEPTA", "option":"Haverford"}),
 	(r"^SEPTA_[aA]rdmore/?$", transportation, {"page": "SEPTA", "option":"Ardmore"}),

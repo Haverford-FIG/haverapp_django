@@ -223,27 +223,24 @@ h1 {
 }
 
 .ui-datepicker-month {
- color: #FFF;
- text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+ color: #990000;
 }
 
 .ui-datepicker-year {
- color: #FFF;
- text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+ color: #990000;
 }
 
 .ui-datepicker-calendar {
- color: #FFF;
- text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+ color: #990000;
+ margin: 0 auto;
 }
 
 .ui-icon {
- color: #FFF;
- text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+ color: #990000;
 }
 
 a:link.ui-state-default{
- color: #FFF;
+ color: #FF9900;
  font-weight: bold;
 }
 

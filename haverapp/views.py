@@ -13,7 +13,7 @@ from xml.etree import ElementTree
 
 from transportation_views import *
 from events_views import *
-
+from news_views import *
 
 
 def main_page(request):

@@ -177,6 +177,7 @@ h1 {
  height:70%;
  margin:15%;
  position:relative;
+ display:none;
 }
 
 .menuIconContainer {
@@ -246,4 +247,8 @@ a:link.ui-state-default{
 
 .hiddenElement {
  display:none;
+}
+
+.copyrightLink, .copyrightLink:visited{
+ color:#FF9900;
 }

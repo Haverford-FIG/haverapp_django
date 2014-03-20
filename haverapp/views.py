@@ -44,7 +44,16 @@ def menu_screen(request, page="index"):
 #Written by Brandon on 12/12/2013
 #Last Edited by Casey 12/21/2013
 #Notes: Should translate this to create database entries and give THOSE to client instead.
-def get_DC_menu(request, date=datetime.datetime.today()):
+
+def remove_dups(l):
+	s = []
+	for x in l:
+		if x not in l:
+			s.append(x)
+		
+	return list(set(l))
+
+def get_DC_menu(request, date=datetime.datetime.today() + datetime.timedelta(days=0)):
         message = ""
         today = date
         date_formatted  = date.strftime("%Y-%m-%d")
@@ -60,8 +69,8 @@ def get_DC_menu(request, date=datetime.datetime.today()):
 	dinner = 17
         
 	#Start to strip the feed for the requested meal:
-    	final = []    
-	for entry in raw_feed.entries[2:]:
+    	final = []
+	for entry in raw_feed.entries:
                 feed = entry["content"][0]["value"]
 		counter = 0
 		for x in feed:
@@ -75,60 +84,25 @@ def get_DC_menu(request, date=datetime.datetime.today()):
 		todays_feed = ""
 
 	todays_feed = ""
+	
+	while len(final) > 3:
+		final = final[1:]
+	
+	print "first: " + final[0]
+	print "second: " + final[1]
+	print "third: " + final[2]
+	print len(final)
+
 	if len(final) == 3:
-		todays_feed += "<h2>Breakfast</h2>" + final[1][4:]
-		todays_feed += "<h2>Lunch</h2>" + final[0][4:]
-		todays_feed += "<h2>Dinner</h2>" + final[2][4:]
-	else:
+		todays_feed += "<h2>Breakfast</h2>" + final[2][4:]
+		todays_feed += "<h2>Lunch</h2>" + final[1][4:]
+		todays_feed += "<h2>Dinner</h2>" + final[0][4:]
+	elif len(final) == 2:
 		todays_feed += "<h2>Brunch</h2>" + final[0][4:]
 		todays_feed += "<h2>Dinner</h2>" + final[1][4:]
+	else:
+		todays_feed += "<h2>Breakfast</h2>" + final[0][4:]
 
-	"""
-		if "gd_when" in entry.keys():
-                	start_time = entry["gd_when"]["starttime"][11:-10]
-		else:
-			start_time = "07:30:00"
-
-		# print date_time
-                # date_time = "09:30:00"
-		hour = int(date_time[:2])
-		mins = int(date_time[3:5])
-		print "Start time: " + start_time
-                print "hour: " + date_time[:2]
-	
-		if hour  < lunch and start_time == "07:30:00":
-			todays_feed += "<h1>Breakfast</h1>"
-                        for x in feed:
-                                if not number(x):
-                                        todays_feed += x
-                                else:
-                                        todays_feed += " "
-                        todays_feed += "</br>"
-                        break
-                elif hour >= lunch and hour  < dinner and start_time == "11:00:00":
-			todays_feed += "<h1>Lunch</h1>"
-                        for x in feed:
-                                if not number(x):
-                                        todays_feed += x
-                                else:
-                                        todays_feed += " "
-                        todays_feed += "</br>"
-                        break
-                elif hour >= dinner and hour <= 24 and start_time == "17:00:00":
-			todays_feed += "<h1>Dinner</h1>"
-			counter=0
-			for x in feed:
-                                if not number(x):
-                                	todays_feed += x
-                                elif number(x):
-					counter += 1
-					if (counter%4==0):
-						todays_feed += "</br>"
-				else:
-                                       todays_feed += " "
-                        todays_feed += "</br>"
-                        break
-	"""
 	if not todays_feed:
 		message="Apparently, nothing is on the menu for today!"
 	return render(request, "app_container.html", {"date":date, "message":message, "title": "DC Grub", "feed":todays_feed, "template": "DC_feed.html"})

@@ -48,12 +48,12 @@ def menu_screen(request, page="index"):
 def remove_dups(l):
 	s = []
 	for x in l:
-		if x not in l:
+		if x not in s:
 			s.append(x)
 		
 	return list(set(l))
 
-def get_DC_menu(request, date=datetime.datetime.today() + datetime.timedelta(days=0)):
+def get_DC_menu(request, date=datetime.datetime.today() + datetime.timedelta(days=3)):
         message = ""
         today = date
         date_formatted  = date.strftime("%Y-%m-%d")
@@ -72,6 +72,7 @@ def get_DC_menu(request, date=datetime.datetime.today() + datetime.timedelta(day
     	final = []
 	for entry in raw_feed.entries:
                 feed = entry["content"][0]["value"]
+		time = entry["gd_when"]["starttime"][11:13]
 		counter = 0
 		for x in feed:
                 	if not number(x):
@@ -80,7 +81,8 @@ def get_DC_menu(request, date=datetime.datetime.today() + datetime.timedelta(day
 				if counter%4 == 0:
                                 	todays_feed += "<br>"
 				counter = counter + 1
-		final.append(todays_feed)
+		
+		final.append([todays_feed, time])
 		todays_feed = ""
 
 	todays_feed = ""
@@ -88,18 +90,22 @@ def get_DC_menu(request, date=datetime.datetime.today() + datetime.timedelta(day
 	while len(final) > 3:
 		final = final[1:]
 	
-	print "first: " + final[0]
-	print "second: " + final[1]
-	print "third: " + final[2]
-	print len(final)
 
-	if len(final) == 3:
-		todays_feed += "<h2>Breakfast</h2>" + final[2][4:]
-		todays_feed += "<h2>Lunch</h2>" + final[1][4:]
-		todays_feed += "<h2>Dinner</h2>" + final[0][4:]
+	if len(final) > 1:
+		for x in final:
+			if x[1] == "07":
+				todays_feed += "<h2>Breakfast</h2>" + x[0][4:]
+		for x in final:
+			if x[1] == "11":
+				todays_feed += "<h2>Lunch</h2>" + x[0][4:]
+			elif x[1] == "10":
+				todays_feed +=  "<h2>Brunch</h2>" + x[0]
+		for x in final:
+			if x[1] == "17":
+				todays_feed += "<h2>Dinner</h2>" + x[0][4:]
 	elif len(final) == 2:
-		todays_feed += "<h2>Brunch</h2>" + final[0][4:]
-		todays_feed += "<h2>Dinner</h2>" + final[1][4:]
+		todays_feed += "<h2>Brunch</h2>" + final[1][0][4:]
+		todays_feed += "<h2>Dinner</h2>" + final[0][0][4:]
 	else:
 		todays_feed += "<h2>Breakfast</h2>" + final[0][4:]
 
@@ -107,8 +113,6 @@ def get_DC_menu(request, date=datetime.datetime.today() + datetime.timedelta(day
 		message="Apparently, nothing is on the menu for today!"
 	return render(request, "app_container.html", {"date":date, "message":message, "title": "DC Grub", "feed":todays_feed, "template": "DC_feed.html"})
 
-def clean_Dining_Menu(todays_fee):
-	print "hello"
 
 def number(x):
         numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]

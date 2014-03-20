@@ -37,7 +37,7 @@ def menu_screen(request, page="index"):
   title="Student News" 
  else:
   menu ="menu.html"
-  title="HaverApp"
+  title="HaverHub"
  return render(request, "index.html", {"title":title, "menu":menu})
 
 

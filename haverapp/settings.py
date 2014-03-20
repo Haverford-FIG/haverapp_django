@@ -7,7 +7,7 @@ print PROJECT_ROOT
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ["127.0.0.1","0.0.0.0","165.82.80.243","haverapp.co.vu", "ironwood.fig.haverford.edu"]
+ALLOWED_HOSTS = ["127.0.0.1","0.0.0.0","165.82.80.243","haverapp.co.vu", "haverhub.co.vu", "hub.fig.haverford.edu"]
 
 ADMINS = ()
 

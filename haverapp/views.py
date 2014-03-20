@@ -53,7 +53,7 @@ def remove_dups(l):
 		
 	return list(set(l))
 
-def get_DC_menu(request, date=datetime.datetime.today() + datetime.timedelta(days=0)):
+def get_DC_menu(request, date=datetime.datetime.today() + datetime.timedelta(hours=4)):
         message = ""
         today = date
         date_formatted  = date.strftime("%Y-%m-%d")

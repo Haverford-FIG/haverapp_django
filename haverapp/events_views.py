@@ -28,6 +28,13 @@ def events_bryn_mawr():
 	product=[{"title":grandchild[0].text,"description":grandchild[1].text,"url":grandchild[5].text, "pubDate":grandchild[4].text[:17]} for child in xml_response for grandchild in child.findall("item")]
 	return product
 
+def haverford_news():
+	raw_response = urllib2.urlopen("http://www.haverford.edu/news/rss/").read()
+	xml_response = ElementTree.fromstring(raw_response)
+	product=[{"title":grandchild[0].text,"description":grandchild[1].text,"url":grandchild[5].text, "pubDate":grandchild[4].text[:17]} for child in xml_response for grandchild in child.findall("item")]
+	return product
+
+
 
 def events_haverford():
     raw_response = urllib2.urlopen("http://www.haverford.edu/goevents/").read()

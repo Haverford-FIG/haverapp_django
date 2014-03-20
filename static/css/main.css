@@ -247,4 +247,6 @@ a:link.ui-state-default{
  font-weight: bold;
 }
 
-
+.hiddenElement {
+ display:none;
+}

@@ -179,13 +179,40 @@ def get_blueBus_data(date=None):
 
  #Get the data for today.
  query = BlueBus.objects.filter(day=day)
+ headings = BlueBus.objects.filter(day=day).values_list("name").distinct()
  parsed_entries = sort_by_name_field(query)
  schedule_table = [[heading, parsed_entries[heading]] for heading in parsed_entries.keys()]
 
  if not schedule_table:
   error = "No times left!"
  
- return {"day": day, "error":error,  "schedule_table": schedule_table}
+ return {"day": day, "error":error,  "schedule_table": schedule_table, "headings":headings}
+
+"""
+def get_next_blueBuses(query, date):
+ #Variable Setup
+ error = ""
+ #Get the input date if possible, else show the current day.
+ try:
+  date = datetime.datetime.strptime(date,'%m/%d/%Y')
+ except:
+  date = datetime.datetime.now()
+
+ #Get the appropriate day of the week.
+ day = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][date.weekday()]
+
+ if day=="Saturday":
+  if datetime.datetime.now().time < datetime.datetime(1,1,1,15).time:
+   day += " (Night)"
+
+ day_options = BlueBus.objects.filter(day=day).values_list("name").distinct()
+
+ assert()
+ query = BlueBus.objects.filter(day=day)
+ datetimes = sorted([datetime.datetime.strptime(entry.time, "%H:%M%p") for entry in query])
+ 
+ result = []
+"""
 
 #The main TRANSPORTATION view that funnels view information into one easy-to-use template. 
 def transportation(request, page, option=None, year="", month="", day=""):

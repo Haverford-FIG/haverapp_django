@@ -8,5 +8,10 @@ $("#dateField").on("change",function(){
  window.location.href = "/blueBus/"+date;
 });
 
+$(".showHiddenElementButton").on("click", function() { 
+ $(".hiddenElement").show();
+ $(this).remove()
+});
+
 //################################################################
 });

@@ -249,6 +249,7 @@ a:link.ui-state-default{
  display:none;
 }
 
-.copyrightLink, .copyrightLink:visited{
+a.copyrightLink, a.copyrightLink:visited{
  color:#FF9900;
+ font-weight:bold;
 }

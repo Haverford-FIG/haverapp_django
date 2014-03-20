@@ -3,10 +3,24 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.0/jquery.mobile.min.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.0/jquery.mobile.min.js"></script>
+<!-- Import JQuery Mobile Theme for events -->
+    <link rel="stylesheet" href="../static/js/events_theme.css" />
+    <link rel="stylesheet" href="../static/js/jquery.mobile.icons.min.css" />
 
-    <ul data-role="listview" data-inset="true">  
+    <style>
+    #contentContainer {
+    background-color: maroon;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    font-family: ubuntu;
+    }
+    </style>
+    <ul data-role="listview" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" data-inset="true">  
      {% for date_packet in data %}
-            <li data-role="list-divider">{{date_packet.0}}</li>
+            <li data-role="list-divider" class="ui-li-divider ui-bar-inherit ui-first-child" >{{date_packet.0}}</li>
             {% for entry in date_packet.1 %}
             <li>
             <a href="{%if entry.url%}{{entry.url}}{%else%}#{%endif%}">

@@ -253,3 +253,7 @@ a.copyrightLink, a.copyrightLink:visited{
  color:#FF9900;
  font-weight:bold;
 }
+
+.motto {
+ font-style:oblique; 
+}

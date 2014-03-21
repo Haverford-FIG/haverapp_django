@@ -55,7 +55,7 @@ def remove_dups(l):
 
 def get_DC_menu(request, date=None):
         if not date:
-         date = datetime.datetime.today() + datetime.timedelta(hours=4))
+         date = datetime.datetime.today() + datetime.timedelta(hours=4)
         message = ""
         today = date
         date_formatted  = date.strftime("%Y-%m-%d")

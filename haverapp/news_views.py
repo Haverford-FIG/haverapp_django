@@ -23,7 +23,10 @@ def haverford_news():
 
 #The main EVENTS view that funnels view information into one easy-to-use template.
 def news(request, page):
+    #Variable Setup.
     template = "event_grid.html"
+    back = "news"
+
     if page=="haverfordnews":
         data = haverford_news()
         title="Haverford"
@@ -54,6 +57,6 @@ def news(request, page):
 		new_data.append([entry["description"], [entry]])
 
     new_data.pop(0)
-    return render(request, "app_container.html", {"template":template, "data":new_data, "title": title}    )
+    return render(request, "app_container.html", {"template":template, "data":new_data, "title": title, "back":back}    )
 
 

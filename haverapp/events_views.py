@@ -115,7 +115,10 @@ def camp_philly_feed():
 
 #The main EVENTS view that funnels view information into one easy-to-use template.
 def events(request, page):
+    #Variable Setup.
     template = "event_grid.html"
+    back="events"
+
     if page=="haverford":
         data = events_haverford()
         title="Haverford"
@@ -157,6 +160,6 @@ def events(request, page):
 		new_data.append([entry["description"], [entry]])
 
     new_data.pop(0)
-    return render(request, "app_container.html", {"template":template, "data":new_data, "title": title}    )
+    return render(request, "app_container.html", {"template":template, "data":new_data, "title": title, "back":back}    )
 
 

@@ -216,6 +216,7 @@ def get_next_blueBuses(query, date):
 
 #The main TRANSPORTATION view that funnels view information into one easy-to-use template. 
 def transportation(request, page, option=None, year="", month="", day=""):
+	back="transportation"
 	if page=="SEPTA":
 		template = "SEPTA.html"
 		data = get_SEPTA_data(option)
@@ -233,6 +234,6 @@ def transportation(request, page, option=None, year="", month="", day=""):
 		template = "blueBus.html"
 		data = {"heading_1":[], "heading_2":[]}
 		title="404"
-	return render(request, "app_container.html", {"template":template, "data":data, "title": title})
+	return render(request, "app_container.html", {"template":template, "data":data, "title": title, "back":back})
 
 

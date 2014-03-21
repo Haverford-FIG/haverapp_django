@@ -23,6 +23,7 @@ urlpatterns = patterns('',
 	(r"^events_campus_philly/?$", events, {"page": "campus_philly"}),
 	
 	(r"^student_?news?/?$", menu_screen, {"page": "studentnews"}),
+	(r"^news/?$", menu_screen, {"page": "studentnews"}),
 	(r"^haverford_?news?/?$", news, {"page": "haverfordnews"}),
 
 	(r"^transportation/?$", menu_screen, {"page": "transportation"}),

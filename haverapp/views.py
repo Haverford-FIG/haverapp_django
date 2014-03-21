@@ -22,7 +22,10 @@ def main_page(request):
 
 
 
-def menu_screen(request, page="index"):
+def menu_screen(request, page="home"):
+ #Variable Setup.
+ back="home"
+
  if page=="health":
   menu="health_menu.html"
   title="HaverHealth"
@@ -38,7 +41,7 @@ def menu_screen(request, page="index"):
  else:
   menu ="menu.html"
   title="HaverHub"
- return render(request, "index.html", {"title":title, "menu":menu})
+ return render(request, "index.html", {"title":title, "menu":menu, "back":back})
 
 
 #Written by Brandon on 12/12/2013
@@ -113,7 +116,7 @@ def get_DC_menu(request, date=None):
 
 	if not todays_feed:
 		message="Apparently, nothing is on the menu for today!"
-	return render(request, "app_container.html", {"date":date, "message":message, "title": "DC Grub", "feed":todays_feed, "template": "DC_feed.html"})
+	return render(request, "app_container.html", {"date":date, "message":message, "title": "DC Grub", "feed":todays_feed, "template": "DC_feed.html", "back":"home"})
 
 
 def number(x):

@@ -4,7 +4,7 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 print PROJECT_ROOT
 
 # Django settings for haverapp project.
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ["127.0.0.1","0.0.0.0","165.82.80.243","haverapp.co.vu", "haverhub.co.vu", "hub.fig.haverford.edu"]

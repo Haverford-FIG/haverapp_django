@@ -1,3 +1,5 @@
+/* Customized for FIG's HaverHub */
+
 /*!
 * jQuery Mobile 1.4.2
 * Git HEAD hash: 9d9a42a27d0c693e8b5569c3a10d771916af5045 <> Date: Fri Feb 28 2014 17:32:01 UTC
@@ -220,15 +222,7 @@ html .ui-alt-icon .ui-radio-off:after {
 html .ui-bar-a .ui-bar-inherit,
 html .ui-body-a .ui-bar-inherit,
 html body .ui-group-theme-a .ui-bar-inherit {
-	background-color: #4d4d4d /*{a-bar-background-color}*/;
-	border-color: #6b6b6b /*{a-bar-border}*/;
-	color: #ffffff /*{a-bar-color}*/;
-	text-shadow: 0 /*{a-bar-shadow-x}*/ 1px /*{a-bar-shadow-y}*/ 0 /*{a-bar-shadow-radius}*/ #444444 /*{a-bar-shadow-color}*/;
-	font-weight: bold;
-}
-.ui-bar-a {
-	border-width: 1px;
-	border-style: solid;
+	background-color: #FFC085 /*{a-bar-border}*/;
 }
 /* Page and overlay */
 .ui-overlay-a,
